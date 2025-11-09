@@ -16,7 +16,7 @@ public class Texts {
     public static final String AUTHORIZED = "Вы авторизованы: %s";
     public static final String NOT_AUTHORIZED = "Вы не авторизованы";
     public static final String USER_NOT_FOUND = "Пользователь не найден";
-    public static final String SHORT_LINK = "Сократить ссылку";
+    public static final String SHORT_LINK = "Сократить ссылку (формат: https://link.com)";
     public static final String OPEN_LINK = "Открыть ссылку";
     public static final String TIME_LIMIT = "Время жизни (в днях)";
     public static final String VIEW_LIMIT = "Количество переходов";
@@ -27,6 +27,9 @@ public class Texts {
     public static final String LINK_TIMESTAMP = "Время создания:";
     public static final String LINK_TIME_LIMIT = "Лимит времени (в днях)";
     public static final String LINK_VIEW_LIMIT = "Лимит просмотров:";
-    public static final String EDIT_LINK = "Управление ссылками:";
+    public static final String EDIT_LINK = "Выбор ссылки";
+    public static final String ACTIONS_LINK = "1. Удалить\n2. Изменить количество просмотров";
     public static final String NO_LINKS = "Нет собственных ссылок";
+    public static final String CHANGED = "Изменено";
+    public static final String DELETED = "Удалено";
 }

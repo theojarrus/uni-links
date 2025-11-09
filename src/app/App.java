@@ -39,7 +39,7 @@ public class App {
                     shortLink();
                     break;
                 case 4:
-                    controlLink();
+                    controlLinks();
                     break;
                 case 5:
                     login();
@@ -96,17 +96,18 @@ public class App {
         });
     }
 
-    private void controlLink() {
+    private void controlLinks() {
         String token = tokenHolder.getToken();
         if (token != null) {
             List<Link> links = linkStorage.getAll(token);
             if (!links.isEmpty()) {
                 for (int i = 0; i < links.size(); i++) {
                     Link link = links.get(i);
-                    printInline(i + ".", link.getKey(), "(" + link.getUrl() + ")");
+                    printInline((i + 1) + ".", link.getKey(), "(" + link.getUrl() + ")");
                 }
-                read(true, Texts.EDIT_LINK, new IntCliParser(), input -> {
-
+                read(false, Texts.EDIT_LINK, new IntCliParser(), input -> {
+                    int index = input - 1;
+                    if (index >= 0 && index < links.size()) controlLink(links.get(index).getKey());
                 });
             } else {
                 print(Texts.NO_LINKS);
@@ -114,6 +115,37 @@ public class App {
         } else {
             printStatus(null);
         }
+    }
+
+    private void controlLink(String key) {
+        read(false, Texts.ACTIONS_LINK, new IntCliParser(), action -> {
+            switch (action) {
+                case 1:
+                    deleteLink(key);
+                    break;
+                case 2:
+                    updateViewLimit(key);
+                    break;
+            }
+        });
+    }
+
+    private void deleteLink(String key) {
+        if (linkStorage.delete(key)) {
+            print(Texts.DELETED);
+        } else {
+            print(Texts.INCORRECT);
+        }
+    }
+
+    private void updateViewLimit(String key) {
+        read(false, Texts.LINK_VIEW_LIMIT, new IntCliParser(), viewLimit -> {
+            if (linkStorage.updateViewLimit(key, viewLimit)) {
+                print(Texts.CHANGED);
+            } else {
+                print(Texts.INCORRECT);
+            }
+        });
     }
 
     private void login() {
